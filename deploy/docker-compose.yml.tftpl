@@ -1,0 +1,17 @@
+services:
+  backend:
+    image: ${docker_user}/todo-backend:${image_tag}
+    volumes:
+      - todo-data:/data
+    restart: unless-stopped
+
+  frontend:
+    image: ${docker_user}/todo-frontend:${image_tag}
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  todo-data:
